@@ -2,7 +2,7 @@
   "name": "reqparam1",
   "version": "1.0.0",
   "description": "demo of req params",
-  "main": "getpost_form.js",
+  "main": "app4.js",
   "scripts": {
     "test": "nodemon app.js"
   },
@@ -13,7 +13,6 @@
   "author": "Akhil",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.13.4",
-    "body-parser": "latest"
+    "express": "^4.13.4"
   }
 }
