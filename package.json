@@ -1,8 +1,8 @@
 {
-  "name": "reqparam1",
+  "name": "expfilters",
   "version": "1.0.0",
   "description": "demo of req params",
-  "main": "app4.js",
+  "main": "app.js",
   "scripts": {
     "test": "nodemon app.js"
   },
