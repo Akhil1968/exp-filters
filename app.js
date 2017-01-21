@@ -3,28 +3,27 @@ var app = exp();
 
 app.use(exp.static(__dirname + "/public"));
 
-var filterFn = function (req, res, next) {
-  req.requestTime = Date.now();
-  console.log("Pre-filter");
-  console.log("Req protocol=%s hostname=%s method=%s path=%s", 
+var preFilterFn = function (req, res, next) {
+  console.log("\n ** Pre-filter called. Req protocol=%s hostname=%s method=%s path=%s", 
   req.protocol, req.hostname, req.method, req.path);
-  console.log("Req url=" + req.url);
   next();
 }
-app.use(filterFn);
+app.use(preFilterFn);
 
 
-var byeFn = function (req, res, next){
-  console.log('post filter called \n');
+var postFilterFn = function (req, res, next){
+  console.log('post filter called');
   res.end();
 }
 
 var homeHandler = function(req, res, next){
+  console.log('home handler called');
   res.write("<html><body><h3>home Handler</h3></body></html>");
   next();
 }
 
 var dataHandler = function(req, res, next){
+  console.log('data handler called');
   res.write("<html><body><h3>Data Handler</h3>");
   res.write("\n nm=" + req.query.nm );
   res.write("\n country=" + req.query.country );
@@ -33,15 +32,16 @@ var dataHandler = function(req, res, next){
 }
 
 var aboutHandler = function(req, res, next){
+  console.log('about handler called');
   res.write("<html><body><h3>About Handler</h3></body></html>");
   next();
 }
 
-app.get("/home", homeHandler, byeFn);
-app.get("/data", dataHandler, byeFn);
-app.get("/about", aboutHandler, byeFn);
+app.get("/home", homeHandler, postFilterFn);
+app.get("/data", dataHandler, postFilterFn);
+app.get("/about", aboutHandler, postFilterFn);
 
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
-	console.log("Server is ON at " + port);
+	console.log("Catch the action at " + port);
 });
